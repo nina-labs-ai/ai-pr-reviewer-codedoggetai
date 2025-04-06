@@ -8,19 +8,19 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 1. Dependencies
 
-- [ ] Install Google Generative AI package:
+- [x] Install Google Generative AI package:
 
   ```bash
   npm install @google/generative-ai
   ```
 
-- [ ] Install file management package:
+- [x] Install file management package:
 
   ```bash
   npm install @google/generative-ai/server
   ```
 
-- [ ] Install mime-types for file handling:
+- [x] Install mime-types for file handling:
 
   ```bash
   npm install mime-types
