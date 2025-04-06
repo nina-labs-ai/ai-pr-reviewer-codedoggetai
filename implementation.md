@@ -37,10 +37,10 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 3. API Integration
 
-- [ ] Create new `src/gemini.ts` file to replace OpenAI functionality:
-  - Implement a `GeminiBot` class similar to the current `Bot` class
-  - Set up chat session and history handling
-  - Implement proper prompt handling for Gemini
+- [x] Create new `src/gemini.ts` file to replace OpenAI functionality:
+  - [x] Implement a `GeminiBot` class similar to the current `Bot` class
+  - [x] Set up chat session and history handling
+  - [x] Implement proper prompt handling for Gemini
 
 ### 4. Token Management
 
