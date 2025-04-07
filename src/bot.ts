@@ -41,7 +41,7 @@ IMPORTANT: Entire response must be in the language with ISO code: ${options.lang
       this.model = this.client.getGenerativeModel({
         model: modelName,
         generationConfig: {
-          temperature: options.openaiModelTemperature,
+          temperature: options.geminiModelTemperature,
           topK: 64,
           topP: 0.95,
           maxOutputTokens: 65536 // This should be replaced by proper token limits
@@ -104,7 +104,7 @@ IMPORTANT: Entire response must be in the language with ISO code: ${options.lang
         // If we have an existing chat session, use it
         if (chatSession) {
           response = await pRetry(() => chatSession.sendMessage(message), {
-            retries: this.options.openaiRetries
+            retries: this.options.geminiRetries
           })
         } else {
           // Create a new chat session with history if available
@@ -148,7 +148,7 @@ IMPORTANT: Entire response must be in the language with ISO code: ${options.lang
 
           // Send the user's message
           response = await pRetry(() => chatSession.sendMessage(message), {
-            retries: this.options.openaiRetries,
+            retries: this.options.geminiRetries,
             onFailedAttempt: error => {
               warning(
                 `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`

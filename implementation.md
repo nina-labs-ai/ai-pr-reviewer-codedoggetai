@@ -77,10 +77,11 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 8. Review and Comment Handling
 
-- [ ] Update `src/review.ts` and `src/review-comment.ts`:
-  - Modify to handle Gemini's response format
-  - Update any OpenAI-specific functionality
-  - Ensure compatibility with GitHub PR review format
+- [x] Update `src/review.ts` and `src/review-comment.ts`:
+  - [x] Update references from `openaiConcurrencyLimit` to `geminiConcurrencyLimit`
+  - [x] Modify to handle Gemini's response format
+  - [x] Update any OpenAI-specific functionality
+  - [x] Ensure compatibility with GitHub PR review format
 
 ### 9. Documentation
 
