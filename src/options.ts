@@ -11,19 +11,17 @@ export class Options {
   reviewCommentLGTM: boolean
   pathFilters: PathFilter
   systemMessage: string
-  openaiLightModel: string
-  openaiHeavyModel: string
-  openaiModelTemperature: number
-  openaiRetries: number
-  openaiTimeoutMS: number
-  openaiConcurrencyLimit: number
+  geminiLightModel: string
+  geminiHeavyModel: string
+  geminiModelTemperature: number
+  geminiRetries: number
+  geminiTimeoutMS: number
+  geminiConcurrencyLimit: number
   githubConcurrencyLimit: number
   lightTokenLimits: TokenLimits
   heavyTokenLimits: TokenLimits
-  apiBaseUrl: string
+  geminiApiEndpoint: string
   language: string
-  geminiLightModel: string
-  geminiHeavyModel: string
 
   constructor(
     debug: boolean,
@@ -34,14 +32,12 @@ export class Options {
     reviewCommentLGTM = false,
     pathFilters: string[] | null = null,
     systemMessage = '',
-    openaiLightModel = 'gpt-3.5-turbo',
-    openaiHeavyModel = 'gpt-3.5-turbo',
     openaiModelTemperature = '0.0',
     openaiRetries = '3',
     openaiTimeoutMS = '120000',
     openaiConcurrencyLimit = '6',
     githubConcurrencyLimit = '6',
-    apiBaseUrl = 'https://api.openai.com/v1',
+    geminiApiEndpoint = 'https://generativelanguage.googleapis.com/v1',
     language = 'en-US',
     geminiLightModel = 'gemini-2.0-flash-lite',
     geminiHeavyModel = 'gemini-2.5-pro-preview-03-25'
@@ -54,19 +50,22 @@ export class Options {
     this.reviewCommentLGTM = reviewCommentLGTM
     this.pathFilters = new PathFilter(pathFilters)
     this.systemMessage = systemMessage
-    this.openaiLightModel = openaiLightModel
-    this.openaiHeavyModel = openaiHeavyModel
-    this.openaiModelTemperature = parseFloat(openaiModelTemperature)
-    this.openaiRetries = parseInt(openaiRetries)
-    this.openaiTimeoutMS = parseInt(openaiTimeoutMS)
-    this.openaiConcurrencyLimit = parseInt(openaiConcurrencyLimit)
-    this.githubConcurrencyLimit = parseInt(githubConcurrencyLimit)
-    this.lightTokenLimits = new TokenLimits(openaiLightModel)
-    this.heavyTokenLimits = new TokenLimits(openaiHeavyModel)
-    this.apiBaseUrl = apiBaseUrl
-    this.language = language
+
+    // Map OpenAI parameters to Gemini parameters
     this.geminiLightModel = geminiLightModel
     this.geminiHeavyModel = geminiHeavyModel
+    this.geminiModelTemperature = parseFloat(openaiModelTemperature)
+    this.geminiRetries = parseInt(openaiRetries)
+    this.geminiTimeoutMS = parseInt(openaiTimeoutMS)
+    this.geminiConcurrencyLimit = parseInt(openaiConcurrencyLimit)
+    this.githubConcurrencyLimit = parseInt(githubConcurrencyLimit)
+
+    // Initialize token limits for Gemini models
+    this.lightTokenLimits = new TokenLimits(geminiLightModel)
+    this.heavyTokenLimits = new TokenLimits(geminiHeavyModel)
+
+    this.geminiApiEndpoint = geminiApiEndpoint
+    this.language = language
   }
 
   // print all options using core.info
@@ -79,19 +78,17 @@ export class Options {
     info(`review_comment_lgtm: ${this.reviewCommentLGTM}`)
     info(`path_filters: ${this.pathFilters}`)
     info(`system_message: ${this.systemMessage}`)
-    info(`openai_light_model: ${this.openaiLightModel}`)
-    info(`openai_heavy_model: ${this.openaiHeavyModel}`)
-    info(`openai_model_temperature: ${this.openaiModelTemperature}`)
-    info(`openai_retries: ${this.openaiRetries}`)
-    info(`openai_timeout_ms: ${this.openaiTimeoutMS}`)
-    info(`openai_concurrency_limit: ${this.openaiConcurrencyLimit}`)
+    info(`gemini_light_model: ${this.geminiLightModel}`)
+    info(`gemini_heavy_model: ${this.geminiHeavyModel}`)
+    info(`gemini_model_temperature: ${this.geminiModelTemperature}`)
+    info(`gemini_retries: ${this.geminiRetries}`)
+    info(`gemini_timeout_ms: ${this.geminiTimeoutMS}`)
+    info(`gemini_concurrency_limit: ${this.geminiConcurrencyLimit}`)
     info(`github_concurrency_limit: ${this.githubConcurrencyLimit}`)
     info(`summary_token_limits: ${this.lightTokenLimits.string()}`)
     info(`review_token_limits: ${this.heavyTokenLimits.string()}`)
-    info(`api_base_url: ${this.apiBaseUrl}`)
+    info(`gemini_api_endpoint: ${this.geminiApiEndpoint}`)
     info(`language: ${this.language}`)
-    info(`gemini_light_model: ${this.geminiLightModel}`)
-    info(`gemini_heavy_model: ${this.geminiHeavyModel}`)
   }
 
   checkPath(path: string): boolean {
@@ -163,10 +160,18 @@ export class OpenAIOptions {
 export class GeminiOptions {
   model: string
   tokenLimits: TokenLimits
+  temperature: number
+  maxOutputTokens: number
+  topK: number
+  topP: number
 
   constructor(
     model = 'gemini-2.0-flash-lite',
-    tokenLimits: TokenLimits | null = null
+    tokenLimits: TokenLimits | null = null,
+    temperature = 0.0,
+    maxOutputTokens = 65536,
+    topK = 64,
+    topP = 0.95
   ) {
     this.model = model
     if (tokenLimits != null) {
@@ -174,5 +179,9 @@ export class GeminiOptions {
     } else {
       this.tokenLimits = new TokenLimits(model)
     }
+    this.temperature = temperature
+    this.maxOutputTokens = maxOutputTokens
+    this.topK = topK
+    this.topP = topP
   }
 }

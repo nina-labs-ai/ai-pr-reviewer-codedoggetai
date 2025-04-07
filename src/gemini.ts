@@ -107,7 +107,7 @@ IMPORTANT: Entire response must be in the language with ISO code: ${options.lang
         // If we have an existing chat session, use it
         if (chatSession) {
           response = await pRetry(() => chatSession.sendMessage(message), {
-            retries: this.options.openaiRetries
+            retries: this.options.geminiRetries
           })
         } else {
           // Create a new chat session with history if available
@@ -151,7 +151,7 @@ IMPORTANT: Entire response must be in the language with ISO code: ${options.lang
 
           // Send the user's message
           response = await pRetry(() => chatSession.sendMessage(message), {
-            retries: this.options.openaiRetries,
+            retries: this.options.geminiRetries,
             onFailedAttempt: error => {
               warning(
                 `Attempt ${error.attemptNumber} failed. There are ${error.retriesLeft} retries left.`

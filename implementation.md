@@ -70,10 +70,10 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 7. Options Management
 
-- [ ] Update `src/options.ts`:
-  - Rename OpenAI-specific options to Gemini equivalents
-  - Update default values
-  - Create a new GeminiOptions class to replace OpenAIOptions
+- [x] Update `src/options.ts`:
+  - [x] Rename OpenAI-specific options to Gemini equivalents
+  - [x] Update default values
+  - [x] Create a new GeminiOptions class to replace OpenAIOptions
 
 ### 8. Review and Comment Handling
 
