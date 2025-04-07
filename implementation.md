@@ -28,12 +28,12 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 2. Configuration Changes
 
-- [ ] Update `action.yml` to replace OpenAI-specific inputs with Gemini equivalents:
-  - Change `openai_base_url` to `gemini_api_endpoint`
-  - Change `openai_light_model` to `gemini_light_model` (default: "gemini-2.5-pro-preview-03-25")
-  - Change `openai_heavy_model` to `gemini_heavy_model` (default: "gemini-2.5-pro-preview-03-25")
-  - Update environment variable requirement from `OPENAI_API_KEY` to `GEMINI_API_KEY`
-  - Update descriptions in action.yml
+- [x] Update `action.yml` to replace OpenAI-specific inputs with Gemini equivalents:
+  - [x] Change `openai_base_url` to `gemini_api_endpoint`
+  - [x] Change `openai_light_model` to `gemini_light_model` (default: "gemini-2.0-flash-lite")
+  - [x] Change `openai_heavy_model` to `gemini_heavy_model` (default: "gemini-2.5-pro-preview-03-25")
+  - [x] Update environment variable requirement from `OPENAI_API_KEY` to `GEMINI_API_KEY`
+  - [x] Update descriptions in action.yml
 
 ### 3. API Integration
 

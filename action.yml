@@ -144,35 +144,35 @@ inputs:
     required: false
     description: 'Disable release notes'
     default: 'false'
-  openai_base_url:
+  gemini_api_endpoint:
     required: false
-    description: 'The url of the openai api interface.'
-    default: 'https://api.openai.com/v1'
-  openai_light_model:
+    description: 'The url of the Gemini API interface.'
+    default: 'https://generativelanguage.googleapis.com/v1beta/openai/'
+  gemini_light_model:
     required: false
     description:
-      'Model to use for simple tasks like summarizing diff on a file.'
-    default: 'gpt-3.5-turbo'
-  openai_heavy_model:
+      'Gemini model to use for simple tasks like summarizing diff on a file.'
+    default: 'gemini-2.0-flash-lite'
+  gemini_heavy_model:
     required: false
-    description: 'Model to use for complex tasks such as code reviews.'
-    default: 'gpt-4'
+    description: 'Gemini model to use for complex tasks such as code reviews.'
+    default: 'gemini-2.5-pro-preview-03-25'
   openai_model_temperature:
     required: false
-    description: 'Temperature for GPT model'
-    default: '0.05'
+    description: 'Temperature for Gemini model'
+    default: '1.0'
   openai_retries:
     required: false
     description:
-      'How many times to retry OpenAI API in case of timeouts or errors?'
+      'How many times to retry Gemini API in case of timeouts or errors?'
     default: '5'
   openai_timeout_ms:
     required: false
-    description: 'Timeout for OpenAI API call in millis'
+    description: 'Timeout for Gemini API call in millis'
     default: '360000'
   openai_concurrency_limit:
     required: false
-    description: 'How many concurrent API calls to make to OpenAI servers?'
+    description: 'How many concurrent API calls to make to Gemini servers?'
     default: '6'
   github_concurrency_limit:
     required: false
@@ -180,10 +180,10 @@ inputs:
     default: '6'
   system_message:
     required: false
-    description: 'System message to be sent to OpenAI'
+    description: 'System message to be sent to Gemini'
     default: |
       You are `@coderabbitai` (aka `github-actions[bot]`), a language model 
-      trained by OpenAI. Your purpose is to act as a highly experienced 
+      trained by Google. Your purpose is to act as a highly experienced 
       software engineer and provide a thorough review of the code hunks
       and suggest code snippets to improve key areas such as:
         - Logic
