@@ -63,10 +63,10 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 6. Main Application Flow
 
-- [ ] Update `src/main.ts`:
-  - Change API key environment variable checks from OpenAI to Gemini
-  - Update bot initialization code
-  - Update options handling for Gemini-specific options
+- [x] Update `src/main.ts`:
+  - [x] Change API key environment variable checks from OpenAI to Gemini
+  - [x] Update bot initialization code
+  - [x] Update options handling for Gemini-specific options
 
 ### 7. Options Management
 

@@ -6,7 +6,7 @@ import {
   warning
 } from '@actions/core'
 import {Bot} from './bot'
-import {OpenAIOptions, Options} from './options'
+import {GeminiOptions, Options} from './options'
 import {Prompts} from './prompts'
 import {codeReview} from './review'
 import {handleReviewComment} from './review-comment'
@@ -28,8 +28,10 @@ async function run(): Promise<void> {
     getInput('openai_timeout_ms'),
     getInput('openai_concurrency_limit'),
     getInput('github_concurrency_limit'),
-    getInput('openai_base_url'),
-    getInput('language')
+    getInput('gemini_api_endpoint'),
+    getInput('language'),
+    getInput('gemini_light_model'),
+    getInput('gemini_heavy_model')
   )
 
   // print options
@@ -41,29 +43,31 @@ async function run(): Promise<void> {
   )
 
   // Create two bots, one for summary and one for review
+  const lightOptions = new GeminiOptions(
+    options.geminiLightModel,
+    options.lightTokenLimits
+  )
+  const heavyOptions = new GeminiOptions(
+    options.geminiHeavyModel,
+    options.heavyTokenLimits
+  )
 
   let lightBot: Bot | null = null
   try {
-    lightBot = new Bot(
-      options,
-      new OpenAIOptions(options.openaiLightModel, options.lightTokenLimits)
-    )
+    lightBot = new Bot(options, lightOptions.model)
   } catch (e: any) {
     warning(
-      `Skipped: failed to create summary bot, please check your openai_api_key: ${e}, backtrace: ${e.stack}`
+      `Skipped: failed to create summary bot, please check your GEMINI_API_KEY: ${e}, backtrace: ${e.stack}`
     )
     return
   }
 
   let heavyBot: Bot | null = null
   try {
-    heavyBot = new Bot(
-      options,
-      new OpenAIOptions(options.openaiHeavyModel, options.heavyTokenLimits)
-    )
+    heavyBot = new Bot(options, heavyOptions.model)
   } catch (e: any) {
     warning(
-      `Skipped: failed to create review bot, please check your openai_api_key: ${e}, backtrace: ${e.stack}`
+      `Skipped: failed to create review bot, please check your GEMINI_API_KEY: ${e}, backtrace: ${e.stack}`
     )
     return
   }

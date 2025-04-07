@@ -23,6 +23,7 @@ export class Options {
   apiBaseUrl: string
   language: string
   geminiLightModel: string
+  geminiHeavyModel: string
 
   constructor(
     debug: boolean,
@@ -42,7 +43,8 @@ export class Options {
     githubConcurrencyLimit = '6',
     apiBaseUrl = 'https://api.openai.com/v1',
     language = 'en-US',
-    geminiLightModel = 'gemini-2.0-flash-lite'
+    geminiLightModel = 'gemini-2.0-flash-lite',
+    geminiHeavyModel = 'gemini-2.5-pro-preview-03-25'
   ) {
     this.debug = debug
     this.disableReview = disableReview
@@ -64,6 +66,7 @@ export class Options {
     this.apiBaseUrl = apiBaseUrl
     this.language = language
     this.geminiLightModel = geminiLightModel
+    this.geminiHeavyModel = geminiHeavyModel
   }
 
   // print all options using core.info
@@ -88,6 +91,7 @@ export class Options {
     info(`api_base_url: ${this.apiBaseUrl}`)
     info(`language: ${this.language}`)
     info(`gemini_light_model: ${this.geminiLightModel}`)
+    info(`gemini_heavy_model: ${this.geminiHeavyModel}`)
   }
 
   checkPath(path: string): boolean {
@@ -147,6 +151,23 @@ export class OpenAIOptions {
   tokenLimits: TokenLimits
 
   constructor(model = 'gpt-3.5-turbo', tokenLimits: TokenLimits | null = null) {
+    this.model = model
+    if (tokenLimits != null) {
+      this.tokenLimits = tokenLimits
+    } else {
+      this.tokenLimits = new TokenLimits(model)
+    }
+  }
+}
+
+export class GeminiOptions {
+  model: string
+  tokenLimits: TokenLimits
+
+  constructor(
+    model = 'gemini-2.0-flash-lite',
+    tokenLimits: TokenLimits | null = null
+  ) {
     this.model = model
     if (tokenLimits != null) {
       this.tokenLimits = tokenLimits
