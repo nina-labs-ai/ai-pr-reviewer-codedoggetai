@@ -8,7 +8,7 @@ import {
   HarmBlockThreshold
 } from '@google/generative-ai'
 import pRetry from 'p-retry'
-import {Options} from './options'
+import {Options} from './options.js'
 
 // Define type to save chat session information
 export interface GeminiIds {

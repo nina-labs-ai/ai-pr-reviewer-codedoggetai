@@ -18,11 +18,30 @@
     "globalThis": false
   },
   "rules": {
-    "i18n-text/no-en": "off"
+    "i18n-text/no-en": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "always",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "env": {
     "node": true,
     "es6": true,
     "jest/globals": true
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      },
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }

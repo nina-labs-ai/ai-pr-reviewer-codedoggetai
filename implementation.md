@@ -94,9 +94,20 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 ### 9.x Random Fixes
 
 - [x] Fix module system issues:
-  - [x] Add "type": "module" to package.json
-  - [x] Update tsconfig.json for ESM compatibility
-  - [x] Fix import/require mismatches in TypeScript files
+  - [x] Add `"type": "module"` and `"engines": { "node": ">=18" }` to package.json
+  - [x] Update tsconfig.json: set `module` and `moduleResolution` to `Node16`, `noEmit` to `false`, remove `allowImportingTsExtensions`
+  - [x] Add `.js` extension to all relative imports in `.ts` files
+  - [x] Add `node:` prefix to all Node.js built-in module imports
+  - [x] Replace `__dirname`/`__filename` usage with `import.meta.url` pattern
+  - [x] Install `eslint-import-resolver-typescript`
+  - [x] Configure ESLint (`.eslintrc.json`) to use both `typescript` and `node` resolvers
+  - [x] Configure ESLint `import/extensions` rule to require `.js` extension for relative imports
+  - [x] Fix compiling issues (addressed by the above steps)
+- [x] Update GitHub Actions configuration:
+  - [x] Set `runs.using` to `node20` in `action.yml`
+  - [x] Update `actions/checkout` to `v4` in workflows (`openai-review.yml`, `combine-prs.yml`)
+  - [x] Update `actions/github-script` to `v7` in `combine-prs.yml`
+  - [x] Update `Actions-R-Us/actions-tagger` to `v2` in `versioning.yml`
 
 ### 10. Testing
 

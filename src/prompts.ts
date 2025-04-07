@@ -1,4 +1,4 @@
-import {type Inputs} from './inputs'
+import {type Inputs} from './inputs.js'
 
 export class Prompts {
   summarize: string

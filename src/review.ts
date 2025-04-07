@@ -2,7 +2,7 @@ import {error, info, warning} from '@actions/core'
 // eslint-disable-next-line camelcase
 import {context as github_context} from '@actions/github'
 import pLimit from 'p-limit'
-import {type Bot} from './bot'
+import {type Bot} from './bot.js'
 import {
   Commenter,
   COMMENT_REPLY_TAG,
@@ -11,12 +11,12 @@ import {
   SHORT_SUMMARY_END_TAG,
   SHORT_SUMMARY_START_TAG,
   SUMMARIZE_TAG
-} from './commenter'
-import {Inputs} from './inputs'
-import {octokit} from './octokit'
-import {type Options} from './options'
-import {type Prompts} from './prompts'
-import {getTokenCount} from './tokenizer'
+} from './commenter.js'
+import {Inputs} from './inputs.js'
+import {octokit} from './octokit.js'
+import {type Options} from './options.js'
+import {type Prompts} from './prompts.js'
+import {getTokenCount} from './tokenizer.js'
 
 // eslint-disable-next-line camelcase
 const context = github_context

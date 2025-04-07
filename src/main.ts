@@ -5,11 +5,11 @@ import {
   setFailed,
   warning
 } from '@actions/core'
-import {Bot} from './bot'
-import {GeminiOptions, Options} from './options'
-import {Prompts} from './prompts'
-import {codeReview} from './review'
-import {handleReviewComment} from './review-comment'
+import {Bot} from './bot.js'
+import {GeminiOptions, Options} from './options.js'
+import {Prompts} from './prompts.js'
+import {codeReview} from './review.js'
+import {handleReviewComment} from './review-comment.js'
 
 async function run(): Promise<void> {
   const options: Options = new Options(
