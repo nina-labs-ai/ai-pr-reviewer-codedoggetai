@@ -1,7 +1,7 @@
 # CodeRabbit Pro
 
 This is an old version of [CodeRabbit](http://coderabbit.ai) and is now in the maintenance mode.
-We recommend installing the Pro version from [CodeRabbit](http://coderabbit.ai). The Pro version is a total redesign and offers significantly better reviews that learn from your usage and improve over time. CodeRabbit Pro is free for open source projects. 
+We recommend installing the Pro version from [CodeRabbit](http://coderabbit.ai). The Pro version is a total redesign and offers significantly better reviews that learn from your usage and improve over time. CodeRabbit Pro is free for open source projects.
 
 [![Discord](https://img.shields.io/badge/Join%20us%20on-Discord-blue?logo=discord&style=flat-square)](https://discord.gg/GsXnASn26c)
 
@@ -13,11 +13,11 @@ We recommend installing the Pro version from [CodeRabbit](http://coderabbit.ai).
 ## Overview
 
 CodeRabbit `ai-pr-reviewer` is an AI-based code reviewer and summarizer for
-GitHub pull requests using OpenAI's `gpt-3.5-turbo` and `gpt-4` models. It is
+GitHub pull requests using Google's Gemini models. It is
 designed to be used as a GitHub Action and can be configured to run on every
 pull request and review comments
 
-## Reviewer Features:
+## Reviewer Features
 
 - **PR Summarization**: It generates a summary and release notes of the changes
   in the pull request.
@@ -26,12 +26,12 @@ pull request and review comments
 - **Continuous, incremental reviews**: Reviews are performed on each commit
   within a pull request, rather than a one-time review on the entire pull
   request.
-- **Cost-effective and reduced noise**: Incremental reviews save on OpenAI costs
+- **Cost-effective and reduced noise**: Incremental reviews save on API costs
   and reduce noise by tracking changed files between commits and the base of the
   pull request.
 - **"Light" model for summary**: Designed to be used with a "light"
-  summarization model (e.g. `gpt-3.5-turbo`) and a "heavy" review model (e.g.
-  `gpt-4`). _For best results, use `gpt-4` as the "heavy" model, as thorough
+  summarization model (e.g. `gemini-2.0-flash-lite`) and a "heavy" review model (e.g.
+  `gemini-2.5-pro-preview-03-25`). _For best results, use `gemini-2.5-pro-preview-03-25` as the "heavy" model, as thorough
   code review needs strong reasoning abilities._
 - **Chat with bot**: Supports conversation with the bot in the context of lines
   of code or entire files, useful for providing context, generating test cases,
@@ -46,7 +46,7 @@ pull request and review comments
 
 To use this tool, you need to add the provided YAML file to your repository and
 configure the required environment variables, such as `GITHUB_TOKEN` and
-`OPENAI_API_KEY`. For more information on usage, examples, contributing, and
+`GEMINI_API_KEY`. For more information on usage, examples, contributing, and
 FAQs, you can refer to the sections below.
 
 - [Overview](#overview)
@@ -57,7 +57,6 @@ FAQs, you can refer to the sections below.
 - [Examples](#examples)
 - [Contribute](#contribute)
 - [FAQs](#faqs)
-
 
 ## Install instructions
 
@@ -90,7 +89,7 @@ jobs:
       - uses: coderabbitai/ai-pr-reviewer@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           debug: false
           review_simple_changes: false
@@ -101,22 +100,18 @@ jobs:
 
 - `GITHUB_TOKEN`: This should already be available to the GitHub Action
   environment. This is used to add comments to the pull request.
-- `OPENAI_API_KEY`: use this to authenticate with OpenAI API. You can get one
-  [here](https://platform.openai.com/account/api-keys). Please add this key to
+- `GEMINI_API_KEY`: use this to authenticate with Google's Gemini API. You can get one
+  [here](https://makersuite.google.com/app/apikey). Please add this key to
   your GitHub Action secrets.
-- `OPENAI_API_ORG`: (optional) use this to use the specified organization with
-  OpenAI API if you have multiple. Please add this key to your GitHub Action
-  secrets.
 
-### Models: `gpt-4` and `gpt-3.5-turbo`
+### Models: `gemini-2.5-pro-preview-03-25` and `gemini-2.0-flash-lite`
 
-Recommend using `gpt-3.5-turbo` for lighter tasks such as summarizing the
-changes (`openai_light_model` in configuration) and `gpt-4` for more complex
-review and commenting tasks (`openai_heavy_model` in configuration).
+Recommend using `gemini-2.0-flash-lite` for lighter tasks such as summarizing the
+changes (`gemini_light_model` in configuration) and `gemini-2.5-pro-preview-03-25` for more complex
+review and commenting tasks (`gemini_heavy_model` in configuration).
 
-Costs: `gpt-3.5-turbo` is dirt cheap. `gpt-4` is orders of magnitude more
-expensive, but the results are vastly superior. We are typically spending $20 a
-day for a 20 developer team with `gpt-4` based review and commenting.
+Costs: `gemini-2.0-flash-lite` is cost-effective. `gemini-2.5-pro-preview-03-25` is more expensive, but the results are superior. We are typically spending $20 a
+day for a 20 developer team with `gemini-2.5-pro-preview-03-25` based review and commenting.
 
 ### Prompts & Configuration
 
@@ -131,7 +126,7 @@ value. For example, to review docs/blog posts, you can use the following prompt:
 ```yaml
 system_message: |
   You are `@coderabbitai` (aka `github-actions[bot]`), a language model
-  trained by OpenAI. Your purpose is to act as a highly experienced
+  trained by Google. Your purpose is to act as a highly experienced
   DevRel (developer relations) professional with focus on cloud-native
   infrastructure.
 
@@ -150,7 +145,7 @@ system_message: |
   - Grammar and prose
   - Typos
   - Hyperlink suggestions
-  - Graphics or images (suggest Dall-E image prompts if needed)
+  - Graphics or images (suggest image prompts if needed)
   - Empathy
   - Engagement
 ```
@@ -205,13 +200,13 @@ appreciated.
 Install the dependencies
 
 ```bash
-$ npm install
+npm install
 ```
 
 Build the typescript and package it for distribution
 
 ```bash
-$ npm run build && npm run package
+npm run build && npm run package
 ```
 
 ## FAQs
@@ -250,7 +245,7 @@ jobs:
       - uses: coderabbitai/ai-pr-reviewer@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           debug: false
           review_simple_changes: false
@@ -258,20 +253,19 @@ jobs:
 ```
 
 See also:
-https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target
+<https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target>
 
-### Inspect the messages between OpenAI server
+### Inspect the messages between Gemini server
 
 Set `debug: true` in the workflow file to enable debug mode, which will show the
 messages
 
 ### Disclaimer
 
-- Your code (files, diff, PR title/description) will be sent to OpenAI's servers
+- Your code (files, diff, PR title/description) will be sent to Google's Gemini servers
   for processing. Please check with your compliance team before using this on
   your private code repositories.
-- OpenAI's API is used instead of ChatGPT session on their portal. OpenAI API
+- Gemini's API is used instead of a session on their portal. Gemini API
   has a
-  [more conservative data usage policy](https://openai.com/policies/api-data-usage-policies)
-  compared to their ChatGPT offering.
-- This action is not affiliated with OpenAI.
+  [more conservative data usage policy](https://ai.google.dev/terms) compared to their other offerings.
+- This action is not affiliated with Google.

@@ -85,11 +85,11 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 9. Documentation
 
-- [ ] Update README.md:
-  - Update installation instructions with Gemini API key setup
-  - Change environment variable requirements
-  - Update configuration options to reflect Gemini parameters
-  - Clarify any differences in behavior between models
+- [x] Update README.md:
+  - [x] Update installation instructions with Gemini API key setup
+  - [x] Change environment variable requirements
+  - [x] Update configuration options to reflect Gemini parameters
+  - [x] Clarify any differences in behavior between models
 
 ### 10. Testing
 
