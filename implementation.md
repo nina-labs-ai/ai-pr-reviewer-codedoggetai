@@ -55,11 +55,11 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 5. Bot Implementation
 
-- [ ] Modify `src/bot.ts` to use Gemini instead of ChatGPT:
-  - Replace imports and class definitions
-  - Change API initialization code
-  - Update chat functionality to use Gemini's API
-  - Modify prompt handling and response processing
+- [x] Modify `src/bot.ts` to use Gemini instead of ChatGPT:
+  - [x] Replace imports and class definitions
+  - [x] Change API initialization code
+  - [x] Update chat functionality to use Gemini's API
+  - [x] Modify prompt handling and response processing
 
 ### 6. Main Application Flow
 
