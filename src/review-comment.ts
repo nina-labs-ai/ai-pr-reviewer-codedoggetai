@@ -103,7 +103,9 @@ export const handleReviewComment = async (
         if (diffAll.data) {
           const files = diffAll.data.files
           if (files != null) {
-            const file = files.find(f => f.filename === comment.path)
+            const file = files.find(
+              (f: {filename: string}) => f.filename === comment.path
+            )
             if (file != null && file.patch) {
               fileDiff = file.patch
             }

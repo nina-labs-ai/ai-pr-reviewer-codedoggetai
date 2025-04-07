@@ -131,10 +131,12 @@ export const codeReview = async (
   }
 
   // Filter out any file that is changed compared to the incremental changes
-  const files = targetBranchFiles.filter(targetBranchFile =>
-    incrementalFiles.some(
-      incrementalFile => incrementalFile.filename === targetBranchFile.filename
-    )
+  const files = targetBranchFiles.filter(
+    (targetBranchFile: {filename: string}) =>
+      incrementalFiles.some(
+        (incrementalFile: {filename: string}) =>
+          incrementalFile.filename === targetBranchFile.filename
+      )
   )
 
   if (files.length === 0) {

@@ -91,6 +91,13 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
   - [x] Update configuration options to reflect Gemini parameters
   - [x] Clarify any differences in behavior between models
 
+### 9.x Random Fixes
+
+- [x] Fix module system issues:
+  - [x] Add "type": "module" to package.json
+  - [x] Update tsconfig.json for ESM compatibility
+  - [x] Fix import/require mismatches in TypeScript files
+
 ### 10. Testing
 
 - [ ] Test on sample PRs
