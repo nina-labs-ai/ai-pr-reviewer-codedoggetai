@@ -327,7 +327,7 @@ ${
       ins,
       options.reviewSimpleChanges
     )
-    const tokens = getTokenCount(summarizePrompt)
+    const tokens = getTokenCount(summarizePrompt, options.geminiLightModel)
 
     if (tokens > options.lightTokenLimits.requestTokens) {
       info(`summarize: diff tokens exceeds limit, skip ${filename}`)
@@ -534,11 +534,14 @@ ${
       ins.filename = filename
 
       // calculate tokens based on inputs so far
-      let tokens = getTokenCount(prompts.renderReviewFileDiff(ins))
+      let tokens = getTokenCount(
+        prompts.renderReviewFileDiff(ins),
+        options.geminiLightModel
+      )
       // loop to calculate total patch tokens
       let patchesToPack = 0
       for (const [, , patch] of patches) {
-        const patchTokens = getTokenCount(patch)
+        const patchTokens = getTokenCount(patch, options.geminiLightModel)
         if (tokens + patchTokens > options.heavyTokenLimits.requestTokens) {
           info(
             `only packing ${patchesToPack} / ${patches.length} patches, tokens: ${tokens} / ${options.heavyTokenLimits.requestTokens}`
@@ -589,7 +592,10 @@ ${
           )
         }
         // try packing comment_chain into this request
-        const commentChainTokens = getTokenCount(commentChain)
+        const commentChainTokens = getTokenCount(
+          commentChain,
+          options.geminiLightModel
+        )
         if (
           tokens + commentChainTokens >
           options.heavyTokenLimits.requestTokens

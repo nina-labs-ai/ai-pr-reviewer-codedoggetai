@@ -44,11 +44,14 @@ This document outlines the plan to replace OpenAI's GPT models with Google's Gem
 
 ### 4. Token Management
 
-- [ ] Update `src/tokenizer.ts` to work with Gemini models:
-  - Replace tiktoken with appropriate token counting for Gemini
-  - Update token calculation methods
-- [ ] Update `src/limits.ts` with Gemini model token limits:
-  - Research and update token limits for Gemini 2.5 Pro
+- [x] Update `src/tokenizer.ts` to work with Gemini models:
+  - [x] Replace tiktoken with Gemini's native token counting
+  - [x] Update token calculation methods
+- [x] Update `src/limits.ts` with Gemini model token limits:
+  - [x] Research and update token limits for Gemini 2.5 Pro
+- [x] Implement direct token counting in `src/review.ts` and `src/review-comment.ts`:
+  - [x] Add local token counting functions using Gemini's API
+  - [x] Replace calls to the tokenizer with direct Gemini API calls
 
 ### 5. Bot Implementation
 

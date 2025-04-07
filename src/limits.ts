@@ -4,20 +4,21 @@ export class TokenLimits {
   responseTokens: number
   knowledgeCutOff: string
 
-  constructor(model = 'gpt-3.5-turbo') {
-    this.knowledgeCutOff = '2021-09-01'
-    if (model === 'gpt-4-32k') {
-      this.maxTokens = 32600
-      this.responseTokens = 4000
-    } else if (model === 'gpt-3.5-turbo-16k') {
-      this.maxTokens = 16300
-      this.responseTokens = 3000
-    } else if (model === 'gpt-4') {
-      this.maxTokens = 8000
-      this.responseTokens = 2000
+  constructor(model = 'gemini-2.0-flash-lite') {
+    this.knowledgeCutOff = '2024-03-25'
+    if (model === 'gemini-2.5-pro-preview-03-25') {
+      this.maxTokens = 1048576 // 1M tokens input limit
+      this.responseTokens = 65536 // 64K tokens output limit
+    } else if (model === 'gemini-2.0-flash') {
+      this.maxTokens = 1048576 // 1M tokens input limit
+      this.responseTokens = 65536 // 64K tokens output limit
+    } else if (model === 'gemini-2.0-flash-lite') {
+      this.maxTokens = 1048576 // 1M tokens input limit
+      this.responseTokens = 65536 // 64K tokens output limit
     } else {
-      this.maxTokens = 4000
-      this.responseTokens = 1000
+      // Default to conservative limits
+      this.maxTokens = 32768 // 32K tokens
+      this.responseTokens = 4096 // 4K tokens
     }
     // provide some margin for the request tokens
     this.requestTokens = this.maxTokens - this.responseTokens - 100

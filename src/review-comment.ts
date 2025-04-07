@@ -129,7 +129,10 @@ export const handleReviewComment = async (
       }
 
       // get tokens so far
-      let tokens = getTokenCount(prompts.renderComment(inputs))
+      let tokens = getTokenCount(
+        prompts.renderComment(inputs),
+        options.geminiLightModel
+      )
 
       if (tokens > options.heavyTokenLimits.requestTokens) {
         await commenter.reviewCommentReply(
@@ -143,7 +146,7 @@ export const handleReviewComment = async (
       if (fileDiff.length > 0) {
         // count occurrences of $file_diff in prompt
         const fileDiffCount = prompts.comment.split('$file_diff').length - 1
-        const fileDiffTokens = getTokenCount(fileDiff)
+        const fileDiffTokens = getTokenCount(fileDiff, options.geminiLightModel)
         if (
           fileDiffCount > 0 &&
           tokens + fileDiffTokens * fileDiffCount <=
@@ -162,7 +165,10 @@ export const handleReviewComment = async (
       if (summary) {
         // pack short summary into the inputs if it is not too long
         const shortSummary = commenter.getShortSummary(summary.body)
-        const shortSummaryTokens = getTokenCount(shortSummary)
+        const shortSummaryTokens = getTokenCount(
+          shortSummary,
+          options.geminiLightModel
+        )
         if (
           tokens + shortSummaryTokens <=
           options.heavyTokenLimits.requestTokens

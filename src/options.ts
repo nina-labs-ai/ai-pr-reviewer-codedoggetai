@@ -22,6 +22,7 @@ export class Options {
   heavyTokenLimits: TokenLimits
   apiBaseUrl: string
   language: string
+  geminiLightModel: string
 
   constructor(
     debug: boolean,
@@ -40,7 +41,8 @@ export class Options {
     openaiConcurrencyLimit = '6',
     githubConcurrencyLimit = '6',
     apiBaseUrl = 'https://api.openai.com/v1',
-    language = 'en-US'
+    language = 'en-US',
+    geminiLightModel = 'gemini-2.0-flash-lite'
   ) {
     this.debug = debug
     this.disableReview = disableReview
@@ -61,6 +63,7 @@ export class Options {
     this.heavyTokenLimits = new TokenLimits(openaiHeavyModel)
     this.apiBaseUrl = apiBaseUrl
     this.language = language
+    this.geminiLightModel = geminiLightModel
   }
 
   // print all options using core.info
@@ -84,6 +87,7 @@ export class Options {
     info(`review_token_limits: ${this.heavyTokenLimits.string()}`)
     info(`api_base_url: ${this.apiBaseUrl}`)
     info(`language: ${this.language}`)
+    info(`gemini_light_model: ${this.geminiLightModel}`)
   }
 
   checkPath(path: string): boolean {
